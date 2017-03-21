@@ -61,7 +61,7 @@ public class AttendanceListing extends BaseActivityExp {
     SharedPreferences pref, shared_pref;
     SharedPreferences.Editor editor, editor1;
     
-    private String[] navMenuTitles;
+    private String[] navMenuTitles;  
     private TypedArray navMenuIcons;
     ActionBarDrawerToggle mDrawerToggle;
     DrawerLayout mDrawerLayout;
