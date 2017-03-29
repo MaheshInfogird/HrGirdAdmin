@@ -215,6 +215,17 @@
                         android:orientation="horizontal" 
                         android:layout_width="fill_parent"
                         android:layout_height="300dp">
+
+                        <TextView
+                            android:id="@+id/txt_no_data"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="Day is Holiday"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:textSize="18sp"
+                            android:visibility="gone"
+                            android:textColor="@color/RedTextColor"/>
                         
                         <com.github.mikephil.charting.charts.PieChart
                             android:id="@+id/chart"
@@ -223,6 +234,7 @@
                             android:layout_weight="1"/>
                         
                         <LinearLayout
+                            android:id="@+id/navigation_color"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"

@@ -160,8 +160,9 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.4"
-                            android:text="Leave Type"
+                            android:text="Session"
                             android:textSize="13sp"
+                            android:paddingLeft="5dp"
                             android:textColor="@color/BlackTextColor"
                             android:textStyle="bold"/>
                         

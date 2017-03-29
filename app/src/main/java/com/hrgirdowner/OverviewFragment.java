@@ -146,13 +146,15 @@ public class OverviewFragment extends Fragment
             {
                 if (receiver.isConnected)
                 {
-                    if (hit_once) {
+                    if (hit_once) 
+                    {
                         getWeeklyLeaveTakerData();
                         getLeaveTakersData();
                         getYearData();
                         leaveTaker_list.setVisibility(View.VISIBLE);
                     }
-                    if (snackbar != null){
+                    if (snackbar != null)
+                    {
                         snackbar.dismiss();
                     }
                 }
@@ -180,9 +182,11 @@ public class OverviewFragment extends Fragment
         txt_emp_onleave_count = (TextView)rootView.findViewById(R.id.emp_onleave);
         txt_noData = (TextView)rootView.findViewById(R.id.txt_no_data);
         
-        ac_leaveTakerDate.setOnClickListener(new View.OnClickListener() {
+        ac_leaveTakerDate.setOnClickListener(new View.OnClickListener() 
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 ac_leaveTakerDate.showDropDown();
             }
         });

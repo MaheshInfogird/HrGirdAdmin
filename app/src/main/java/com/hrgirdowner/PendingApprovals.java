@@ -284,7 +284,8 @@ public class PendingApprovals extends BaseActivityExp {
                         Log.e("JsonException", e.toString());
                     }
                 }
-                else {
+                else 
+                {
                     if (progressDialog.isShowing() && progressDialog != null){
                         progressDialog.dismiss();
                     }
@@ -317,7 +318,7 @@ public class PendingApprovals extends BaseActivityExp {
                 vi = inflater.inflate(R.layout.pendig_approvals_custom, null);
             }
 
-            HashMap< String, Object > data = (HashMap<String, Object>) getItem(position);
+            HashMap<String, Object> data = (HashMap<String, Object>) getItem(position);
             final TextView txt_fullName = (TextView)vi.findViewById(R.id.txt_pendingaprv_name);
             final TextView txt_date = (TextView)vi.findViewById(R.id.txt_pendingaprv_date);
             final TextView txt_description = (TextView)vi.findViewById(R.id.txt_pendingaprv_description);

@@ -82,7 +82,8 @@ public class DashBoard extends BaseActivityExp {
     Toolbar toolbar;
     TextView txt_emp_count, txt_presentPercent, txt_attendanceDate, txt_pieDate, txt_piePer;
     LinearLayout layout_attDate, layout_pieDate;
-    LinearLayout graph_progress;
+    LinearLayout graph_progress, layout_navigation;
+    TextView txt_no_data;
     
     public int mYear, mMonth, mDay;
 
@@ -107,7 +108,7 @@ public class DashBoard extends BaseActivityExp {
     
     String img_url = "http://infogird.gogird.com/files/infogird.gogird.com/images/employeephoto/";
     
-    int presentEmp, lateEmp, onLeaveEmp, absentEmp;
+    int presentEmp, lateEmp = 0, onLeaveEmp = 0, absentEmp = 0;
     int version_code;
     
     public static NetworkChange receiver;
@@ -176,6 +177,8 @@ public class DashBoard extends BaseActivityExp {
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.activity_main_swipe_refresh_layout);
         graph_progress = (LinearLayout) findViewById(R.id.graph_Progress);
 
+        txt_no_data = (TextView)findViewById(R.id.txt_no_data);
+        layout_navigation = (LinearLayout)findViewById(R.id.navigation_color); 
         pieChart = (PieChart) findViewById(R.id.chart);
         chart = (BarChart) findViewById(R.id.chart1);
         txt_emp_count = (TextView) findViewById(R.id.emp_count);
@@ -372,6 +375,10 @@ public class DashBoard extends BaseActivityExp {
 
     public void inTimePieChart()
     {
+        pieChart.setVisibility(View.VISIBLE);
+        layout_navigation.setVisibility(View.VISIBLE);
+        txt_no_data.setVisibility(View.GONE); 
+        
         pieChart.setExtraOffsets(0, 0, 0, 0);
         pieChart.getLegend().setEnabled(false);
         pieChart.setDrawHoleEnabled(true);
@@ -390,23 +397,167 @@ public class DashBoard extends BaseActivityExp {
         //pieChart.setCenterText(generateCenterSpannableText());
         
         ArrayList<Entry> entries = new ArrayList<>();
-        entries.add(new Entry(presentEmp, 0));
-        entries.add(new Entry(onLeaveEmp, 1));
-        entries.add(new Entry(absentEmp, 2));
-
-        pieDataSet = new PieDataSet(entries, "");
-
         ArrayList<String> labels = new ArrayList<String>();
-        labels.add("");
-        labels.add("");
-        labels.add("");
+        Log.i("entries", "entries");
+        if (onLeaveEmp == 0 && absentEmp == 0 && presentEmp != 0) 
+        {
+            Log.i("onLeaveEmp_absentEmp", "onLeaveEmp_absentEmp = 0");
+            entries.add(new Entry(presentEmp, 0));
+            //entries.add(new Entry(onLeaveEmp, 1));
+            //entries.add(new Entry(absentEmp, 2));
 
+            //pieDataSet = new PieDataSet(entries, "");
+            
+            labels.add("");
+            //labels.add("");
+            //labels.add("");
+
+            pieDataSet = new PieDataSet(entries, "");
+            pieDataSet.setValueFormatter(new MyValueFormatterPie());
+
+            PieData data = new PieData(labels, pieDataSet);
+            pieChart.setData(data);
+            pieDataSet.setColors(new int[]{Color.parseColor("#8EC35B")});
+        }
+        else if (onLeaveEmp != 0 && absentEmp == 0 && presentEmp == 0)
+        {
+            Log.i("presentEmp_absentEmp", "presentEmp_absentEmp = 0");
+            //entries.add(new Entry(presentEmp, 0));
+            entries.add(new Entry(onLeaveEmp, 1));
+            //entries.add(new Entry(absentEmp, 2));
+
+            //pieDataSet = new PieDataSet(entries, "");
+
+            labels.add("");
+            //labels.add("");
+            //labels.add("");
+
+            pieDataSet = new PieDataSet(entries, "");
+            pieDataSet.setValueFormatter(new MyValueFormatterPie());
+
+            PieData data = new PieData(labels, pieDataSet);
+            pieChart.setData(data);
+            pieDataSet.setColors(new int[]{Color.parseColor("#FEA525")});
+        }
+        else if (onLeaveEmp == 0 && absentEmp != 0 && presentEmp == 0)
+        {
+            Log.i("onLeaveEmp_presentEmp", "onLeaveEmp_presentEmp = 0");
+            //entries.add(new Entry(presentEmp, 0));
+            //entries.add(new Entry(onLeaveEmp, 1));
+            entries.add(new Entry(absentEmp, 2));
+
+            //pieDataSet = new PieDataSet(entries, "");
+
+            labels.add("");
+            //labels.add("");
+            //labels.add("");
+
+            pieDataSet = new PieDataSet(entries, "");
+            pieDataSet.setValueFormatter(new MyValueFormatterPie());
+
+            PieData data = new PieData(labels, pieDataSet);
+            pieChart.setData(data);
+            pieDataSet.setColors(new int[]{Color.parseColor("#E83133")});
+        }
+        else if (onLeaveEmp == 0 && presentEmp != 0 && absentEmp != 0)
+        {
+            Log.i("onLeaveEmp", "onLeaveEmp = 0");
+            entries.add(new Entry(presentEmp, 0));
+            //entries.add(new Entry(onLeaveEmp, 1));
+            entries.add(new Entry(absentEmp, 2));
+
+            //pieDataSet = new PieDataSet(entries, "");
+
+            labels.add("");
+            //labels.add("");
+            labels.add("");
+
+            pieDataSet = new PieDataSet(entries, "");
+            pieDataSet.setValueFormatter(new MyValueFormatterPie());
+
+            PieData data = new PieData(labels, pieDataSet);
+            pieChart.setData(data);
+            pieDataSet.setColors(new int[]{Color.parseColor("#8EC35B"),
+                    Color.parseColor("#E83133")});
+        }
+        else if (presentEmp == 0 && onLeaveEmp != 0 && absentEmp != 0)
+        {
+            Log.i("presentEmp", "presentEmp = 0");
+            //entries.add(new Entry(presentEmp, 0));
+            entries.add(new Entry(onLeaveEmp, 1));
+            entries.add(new Entry(absentEmp, 2));
+
+            //pieDataSet = new PieDataSet(entries, "");
+
+            //labels.add("");
+            labels.add("");
+            labels.add("");
+
+            pieDataSet = new PieDataSet(entries, "");
+            pieDataSet.setValueFormatter(new MyValueFormatterPie());
+
+            PieData data = new PieData(labels, pieDataSet);
+            pieChart.setData(data);
+            pieDataSet.setColors(new int[]{Color.parseColor("#FEA525"),
+                    Color.parseColor("#E83133")});
+        }
+        else if (absentEmp == 0 && presentEmp != 0 && onLeaveEmp != 0)
+        {
+            Log.i("absentEmp", "absentEmp = 0");
+            entries.add(new Entry(presentEmp, 0));
+            entries.add(new Entry(onLeaveEmp, 1));
+            //entries.add(new Entry(absentEmp, 2));
+
+            //pieDataSet = new PieDataSet(entries, "");
+
+            labels.add("");
+            labels.add("");
+            //labels.add("");
+
+            pieDataSet = new PieDataSet(entries, "");
+            pieDataSet.setValueFormatter(new MyValueFormatterPie());
+
+            PieData data = new PieData(labels, pieDataSet);
+            pieChart.setData(data);
+            pieDataSet.setColors(new int[]{Color.parseColor("#8EC35B"), Color.parseColor("#FEA525")});
+            
+        }
+        else if (onLeaveEmp == 0 && absentEmp == 0 && presentEmp == 0)
+        {
+            Log.i("presentEmp_absentEmp", "presentEmp_absentEmp = 0");
+            pieChart.setVisibility(View.GONE);
+            layout_navigation.setVisibility(View.GONE);
+            txt_no_data.setVisibility(View.VISIBLE);
+        }
+        else 
+        {
+            Log.i("else", "else");
+            entries.add(new Entry(presentEmp, 0));
+            entries.add(new Entry(onLeaveEmp, 1));
+            entries.add(new Entry(absentEmp, 2));
+
+            //pieDataSet = new PieDataSet(entries, "");
+
+            labels.add("");
+            labels.add("");
+            labels.add("");
+
+            pieDataSet = new PieDataSet(entries, "");
+            pieDataSet.setValueFormatter(new MyValueFormatterPie());
+
+            PieData data = new PieData(labels, pieDataSet);
+            pieChart.setData(data);
+            pieDataSet.setColors(new int[]{Color.parseColor("#8EC35B"), Color.parseColor("#FEA525"),
+                    Color.parseColor("#E83133")});
+        }
+
+        /*pieDataSet = new PieDataSet(entries, "");
         pieDataSet.setValueFormatter(new MyValueFormatterPie());
 
         PieData data = new PieData(labels, pieDataSet);
         pieChart.setData(data);
         pieDataSet.setColors(new int[]{Color.parseColor("#8EC35B"), Color.parseColor("#FEA525"), 
-                Color.parseColor("#E83133")});
+                Color.parseColor("#E83133")});*/
         pieDataSet.setValueTextSize(12f);
         pieChart.highlightValues(null);
         pieChart.invalidate();
