@@ -17,6 +17,7 @@
         <!--<item>Switch to Attendance</item>-->
         <item>Settings</item>
         <item>Logout</item>
+        <item>Need To Review</item>
     </string-array>
 
     <array name="nav_drawer_icons">
@@ -28,6 +29,7 @@
         <item>@drawable/attendance_listing_icon</item>
         <item>@drawable/settings_icon</item>
         <item>@drawable/logout_icon</item>
+        <item>@drawable/approved_leave</item>
     </array>
 
     <string-array name="dashboard">
@@ -62,5 +64,10 @@
 
     <string-array name="logout">
         <item></item>
+    </string-array>
+
+    <string-array name="need_review">
+        <item>Review</item>
+        <item>Reviewed</item>
     </string-array>
 </resources>

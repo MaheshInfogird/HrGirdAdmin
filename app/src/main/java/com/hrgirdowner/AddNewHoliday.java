@@ -121,7 +121,7 @@ public class AddNewHoliday extends AppCompatActivity
 
         shared_pref = getSharedPreferences(MyPREFERENCES_url, MODE_PRIVATE);
         Url = (shared_pref.getString("url", ""));
-        //Log.i("Url", Url);
+        Log.i("Url", Url);
         
         ed_holiday_title = (EditText)findViewById(R.id.add_holiday_title);
         ed_holiday_description = (EditText)findViewById(R.id.add_holiday_description);
@@ -170,9 +170,11 @@ public class AddNewHoliday extends AppCompatActivity
             }
         });
         
-        btn_addHoliday.setOnClickListener(new View.OnClickListener() {
+        btn_addHoliday.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) 
+            {
                 if (internetConnection.hasConnection(getApplicationContext()))
                 {
                     if (validation())
@@ -214,7 +216,8 @@ public class AddNewHoliday extends AppCompatActivity
                                     selectYear = year + "-" + (monthOfYear + 1);
                                 }
 
-                                try {
+                                try 
+                                {
                                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
                                     date1 = sdf.parse(selectYear);
                                     date2 = sdf.parse(compYear1);

@@ -66,12 +66,15 @@ public class BaseActivityExp extends ActionBarActivity {
                           R.drawable.pending_approvals,
                           R.drawable.attendance_listing_icon,
                           R.drawable.settings_icon,
-                          R.drawable.logout_icon};
+                          R.drawable.logout_icon,
+                          R.drawable.leave_menu_icon};
     
     static int[] sub_icon = { R.drawable.birthday_menu_icon,
                               R.drawable.work_anniversary,
                               R.drawable.marriage_anniversary};
-
+    
+    static int[] sub_icon_review = { R.drawable.pending_approvals,
+                                     R.drawable.approved_leave};
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -229,6 +232,12 @@ public class BaseActivityExp extends ActionBarActivity {
                         
                         break;
 
+                    case 8:
+                        /*Intent intent9 = new Intent(getApplicationContext(), Settings.class);
+                        startActivity(intent9);
+                        finish();*/
+                        break;
+
                     default:
                         break;
 
@@ -304,6 +313,29 @@ public class BaseActivityExp extends ActionBarActivity {
                         break;
 
                     case 7:
+                        break;
+
+                    case 8:
+                        /*Intent intent9 = new Intent(getApplicationContext(), Approvals.class);
+                        startActivity(intent9);
+                        finish();*/
+                        switch (childPosition)
+                        {
+                            case 0:
+                                Intent intent4 = new Intent(getApplicationContext(), ReviewActivity.class);
+                                startActivity(intent4);
+                                finish();
+                                break;
+
+                            case 1:
+                                Intent intent5 = new Intent(getApplicationContext(), ReviewedActivity.class);
+                                startActivity(intent5);
+                                finish();
+                                break;
+
+                            default:
+                                break;
+                        }
                         break;
 
                     default:
@@ -419,6 +451,10 @@ public class BaseActivityExp extends ActionBarActivity {
 
         List<String> logout = new ArrayList<String>();
 
+        List<String> review = new ArrayList<String>();
+        String[] sub_review = getResources().getStringArray(R.array.need_review);
+        review = Arrays.asList(sub_review);
+
         // assigning values to menu and submenu
         listDataChild.put(listDataHeader.get(0), dashboard); // Header, Child data
         listDataChild.put(listDataHeader.get(1), leaves);
@@ -428,5 +464,6 @@ public class BaseActivityExp extends ActionBarActivity {
         listDataChild.put(listDataHeader.get(5), attListing);
         listDataChild.put(listDataHeader.get(6), settings);
         listDataChild.put(listDataHeader.get(7), logout);
+        listDataChild.put(listDataHeader.get(8), review);
     }
 }

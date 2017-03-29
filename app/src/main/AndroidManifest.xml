@@ -13,7 +13,6 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        
         <activity
             android:name=".UrlActivity"
             android:screenOrientation="portrait"
@@ -73,18 +72,20 @@
             android:name=".ForgotPassword"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-        
-        <activity android:name=".BirthdayActivity"
+        <activity
+            android:name=".BirthdayActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
-        
-        <activity android:name=".WorkAnnActivity"
+        <activity
+            android:name=".WorkAnnActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden"/>
-        
-        <activity android:name=".MarriageAnnActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".MarriageAnnActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden"/>
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".ReviewActivity" />
+        <activity android:name=".ReviewedActivity"></activity>
     </application>
 
 </manifest>

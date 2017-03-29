@@ -46,7 +46,14 @@ class ExpandableListAdapter extends BaseExpandableListAdapter {
         
         TextView txtListChild = (TextView) convertView.findViewById(R.id.lblListItem);
         ImageView imgListChild = (ImageView) convertView.findViewById(R.id.sub_menu_icon);
-        imgListChild.setImageResource(BaseActivityExp.sub_icon[childPosition]);
+        
+        if (groupPosition == 2) {
+            imgListChild.setImageResource(BaseActivityExp.sub_icon[childPosition]);
+        }
+        else
+        {
+            imgListChild.setImageResource(BaseActivityExp.sub_icon_review[childPosition]);
+        }
         txtListChild.setText(childText);
 
         return convertView;
