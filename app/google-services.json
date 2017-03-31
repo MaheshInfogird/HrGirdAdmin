@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "761133935142",
+    "firebase_url": "https://hrgird-admin.firebaseio.com",
+    "project_id": "hrgird-admin",
+    "storage_bucket": "hrgird-admin.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:761133935142:android:72347d341fda208f",
+        "android_client_info": {
+          "package_name": "com.hrgirdowner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "761133935142-tmpet72cauilde9m77kv5atgvsos7s0p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hrgirdowner",
+            "certificate_hash": "4da5a40130ae7bbc214cecca88ec583787ef47a4"
+          }
+        },
+        {
+          "client_id": "761133935142-k7ikgm2g2i64tqfvk2pmcaclfh5c8jra.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4T4CtwduCSI2H46haEsk5azmitM6NgnA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "761133935142-k7ikgm2g2i64tqfvk2pmcaclfh5c8jra.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

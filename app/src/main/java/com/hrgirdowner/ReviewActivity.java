@@ -115,11 +115,11 @@ public class ReviewActivity extends BaseActivityExp {
         internetConnection = new CheckInternetConnection(getApplicationContext());
         cd = new ConnectionDetector(getApplicationContext());
         url_http = cd.geturl();
-        //Log.i("url_http", url_http);
+        Log.i("url_http", url_http);
 
         shared_pref = getSharedPreferences(MyPREFERENCES_url, MODE_PRIVATE);
         Url = (shared_pref.getString("url", ""));
-        //Log.i("Url", Url);
+        Log.i("Url", Url);
 
         content_frame = (FrameLayout) findViewById(R.id.content_frame_approval);
 
