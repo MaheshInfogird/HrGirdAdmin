@@ -45,11 +45,12 @@ public class LogInActivity extends AppCompatActivity
     public static final String MyPREFERENCES_url = "MyPrefs_url" ;
     SharedPreferences shared_pref;
     SharedPreferences.Editor editor1;
-    
+
+    public static final String MyPREFERENCES_notify = "MyPrefs_notify" ;
     public static final String MyPREFERENCES = "MyPrefs" ;
     int PRIVATE_MODE = 0;
-    SharedPreferences pref;
-    SharedPreferences.Editor editor;
+    SharedPreferences pref, pref1;
+    SharedPreferences.Editor editor, editor2;
 
     ConnectionDetector cd;
     UserSessionManager session;
@@ -64,6 +65,7 @@ public class LogInActivity extends AppCompatActivity
     String response_version, myJson1;
     
     int version_code;
+    boolean notification;
     
     ProgressDialog progressDialog;
     EditText ed_userName, ed_password;
@@ -306,6 +308,11 @@ public class LogInActivity extends AppCompatActivity
 
                             session.createUserLoginSession(UserName, Password);
 
+                            pref1 = getApplicationContext().getSharedPreferences(MyPREFERENCES_notify, PRIVATE_MODE);
+                            editor2 = pref1.edit();
+                            editor2.putBoolean("notification", true);
+                            editor2.commit();
+
                             String uId = object.getString("uId");
                             String firstName = object.getString("firstName");
                             String lastName = object.getString("lastName");
@@ -356,113 +363,8 @@ public class LogInActivity extends AppCompatActivity
         GetDataJSON getDataJSON = new GetDataJSON();
         getDataJSON.execute();
     }
-
-    public void getLogoData()
-    {
-        class GetLogoData extends AsyncTask<String, Void, String>
-        {
-            @Override
-            protected void onPreExecute() {
-                progressDialog = ProgressDialog.show(LogInActivity.this, "Please wait", "Getting data...", true);
-                progressDialog.show();
-
-            }
-
-            @Override
-            protected String doInBackground(String... params)
-            {
-                try
-                {
-                    String leave_url = ""+url_http+""+Url+"/owner/hrmapi/logo/?";
-                    URL url = new URL(leave_url);
-                    Log.i("url", "" + url);
-
-                    HttpURLConnection connection = (HttpURLConnection)url.openConnection();
-                    connection.setReadTimeout(10000);
-                    connection.setConnectTimeout(10000);
-                    connection.setRequestMethod("GET");
-                    connection.setUseCaches(false);
-                    connection.setAllowUserInteraction(false);
-                    connection.setDoInput(true);
-                    connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-                    connection.setDoOutput(true);
-                    int responseCode = connection.getResponseCode();
-
-                    if (responseCode == HttpURLConnection.HTTP_OK)
-                    {
-                        String line;
-                        BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                        while ((line = br.readLine()) != null)
-                        {
-                            response = "";
-                            response += line;
-                        }
-                    }
-                    else
-                    {
-                        response = "";
-                    }
-                }
-                catch (Exception e){
-                    Log.e("Exception", e.toString());
-                }
-
-                return response;
-            }
-
-            @Override
-            protected void onPostExecute(String result)
-            {
-                if (result != null)
-                {
-                    myJson = result;
-                    Log.i("myJson", myJson);
-
-                    progressDialog.dismiss();
-
-
-                    if (myJson.equals("[]"))
-                    {
-                        Toast.makeText(LogInActivity.this, "Sorry... Bad internet connection", Toast.LENGTH_LONG).show();
-                    }
-                    else
-                    {
-                        try
-                        {
-                            JSONArray jsonArray = new JSONArray(myJson);
-                            //Log.i("jsonArray", "" + jsonArray);
-
-                            JSONObject object = jsonArray.getJSONObject(0);
-
-                            String get_logo = object.getString("logo");
-
-                            String logo_url = "https://"+Url+"/files/"+Url+"/images/logo/";
-
-                            String logo_final = logo_url +""+ get_logo;
-
-                            shared_pref = getApplicationContext().getSharedPreferences(MyPREFERENCES_url, PRIVATE_MODE);
-                            editor1 = shared_pref.edit();
-                            editor1.putString("logo", get_logo);
-                            editor1.commit();
-
-                            Picasso.with(LogInActivity.this).load(logo_final).into(logo_login);
-                        }
-                        catch (JSONException e) {
-                            Log.e("JsonException", e.toString());
-                        }
-                    }
-                }
-                else {
-                    progressDialog.dismiss();
-                    Toast.makeText(LogInActivity.this, "Sorry...Bad internet connection", Toast.LENGTH_LONG).show();
-                }
-            }
-        }
-
-        GetLogoData getUrlData = new GetLogoData();
-        getUrlData.execute();
-    }
-
+    
+    
     public void getCheckVersion()
     {
         class GetCheckVersion extends AsyncTask<String, Void, String>

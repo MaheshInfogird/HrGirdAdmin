@@ -13,52 +13,47 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
-import org.json.JSONObject;
-
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = "MyFirebaseMsgService";
 
-    public static final String MyPREFERENCES = "MyPrefs" ;
+    public static final String MyPREFERENCES = "MyPrefs_notify" ;
     int PRIVATE_MODE = 0;
     SharedPreferences pref;
     SharedPreferences.Editor editor;
 
-    UserSessionManager session;
-
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) 
     {
-
-        session = new UserSessionManager(getApplicationContext());
-        Log.i("From: ", ""+ remoteMessage.getFrom());
-        //Log.i("Message Body:- ", ""+ remoteMessage.getNotification().getBody());
-        //Log.i("Message Title:- ", ""+ remoteMessage.getNotification().getTitle());
-        
-        /*pref = getApplicationContext().getSharedPreferences(MyPREFERENCES, PRIVATE_MODE);
+        pref = getApplicationContext().getSharedPreferences(MyPREFERENCES, PRIVATE_MODE);
         boolean notification = pref.getBoolean("notification", false);
         
-        if (notification){*/
-            //sendNotification(remoteMessage.getNotification().getBody(), remoteMessage.getNotification().getTitle());
-            //sendNotification("Hello", "New Notification");
-       /* }
-        else {
-            Log.i("disable", ""+notification);
-        }*/
-
-        try
+        if (notification)
         {
-            JSONObject json = new JSONObject(remoteMessage.getData().toString());
-            Log.i(TAG, "json: " + json);
-            String title = json.getString("title");
-            Log.i(TAG, "title: " + title);
-            String body = json.getString("message");
-            Log.i(TAG, "body: " + body);
+            /*try
+            {
+                JSONObject json = new JSONObject(remoteMessage.getData().toString());
+                Log.i("json: ", ""+ json);
+                String title = json.getString("title");
+                Log.i("title: ", ""+ title);
+                String body = json.getString("message");
+                Log.i("body: ", ""+ body);
+
+                sendNotification(title, body);
+            }
+            catch (Exception e) {
+                Log.e("Exception: ", ""+ e.getMessage());
+            }*/
+
+            String title = remoteMessage.getNotification().getTitle();
+            String body = remoteMessage.getNotification().getBody();
+            Log.i("body: ", ""+ body);
+            Log.i("title: ", ""+ title);
             
             sendNotification(title, body);
         }
-        catch (Exception e) {
-            Log.e(TAG, "Exception: " + e.getMessage());
+        else {
+            Log.i("disable", ""+notification);
         }
     }
 
@@ -66,33 +61,19 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     {
         Intent intent;
         
-        if (session.isUrlPresent())
+        if (messageTitle.equals("Birthday"))
         {
-            if (session.isUserLoggedIn())
-            {
-                if (messageTitle.equals("bithday"))
-                {
-                    intent = new Intent(this, BirthdayActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                }
-                else {
-                    intent = new Intent(this, DashBoard.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                }
-            }
-            else {
-                intent = new Intent(this, LogInActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            }
+            intent = new Intent(this, BirthdayActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         }
         else {
-            intent = new Intent(this, UrlActivity.class);
+            intent = new Intent(this, DashBoard.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         }
         
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
 
-        Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         //Uri sound = Uri.parse(("android.resource://" + getPackageName() + "/" + R.raw.app_audio));
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
@@ -105,7 +86,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setContentIntent(pendingIntent);
         
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
         notificationManager.notify(0, notificationBuilder.build());
     }
 }

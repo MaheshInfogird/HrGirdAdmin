@@ -212,9 +212,11 @@ public class DashBoard extends BaseActivityExp {
             }
         };
 
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() 
+        {
             @Override
-            public void onRefresh() {
+            public void onRefresh() 
+            {
                 refresh = true;
                 
                 Calendar c = Calendar.getInstance();

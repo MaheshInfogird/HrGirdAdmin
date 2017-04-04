@@ -37,6 +37,10 @@ public class BaseActivityExp extends ActionBarActivity {
     SharedPreferences pref;
     UserSessionManager session;
     private ActionBarDrawerToggle mDrawerToggle;
+
+    public static final String MyPREFERENCES_notify = "MyPrefs_notify" ;
+    SharedPreferences pref1;
+    SharedPreferences.Editor editor, editor2;
     
     private static final String PREFER_NAME = "MyPref";
     public static final String MyPREFERENCES_url = "MyPrefs_url" ;
@@ -218,6 +222,12 @@ public class BaseActivityExp extends ActionBarActivity {
                                 Intent intent = new Intent(BaseActivityExp.this, LogInActivity.class);
                                 startActivity(intent);
                                 finish();
+
+                                pref1 = getApplicationContext().getSharedPreferences(MyPREFERENCES_notify, PRIVATE_MODE);
+                                editor2 = pref.edit();
+                                editor2.clear();
+                                editor2.putBoolean("notification", false);
+                                editor2.commit();
                             }
                         });
 
