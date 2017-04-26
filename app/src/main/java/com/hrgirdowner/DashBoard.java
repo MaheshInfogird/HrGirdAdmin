@@ -63,7 +63,10 @@ import java.util.Calendar;
 /**
  * Created by adminsitrator on 18/01/2017.
  */
-public class DashBoard extends BaseActivityExp {
+public class DashBoard extends BaseActivityExp
+{
+
+    String yogesh;
 
     public static final String MyPREFERENCES_url = "MyPrefs_url" ;
     int PRIVATE_MODE = 0;
